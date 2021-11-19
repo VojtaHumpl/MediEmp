@@ -1,4 +1,8 @@
 # README #
+## Vytvoření databáze ##
+Nejdřív stáhněte MySQL na https://dev.mysql.com/downloads/connector/j/
+Projděte instalátor a spustí se MySQL Workbench, tam levý panel přepnete z "Administration" na "Schemas", kliknete pravým a dáte "Create Schema." Schéma pojmenujte test (jinak všude jinde místo test budete psát jméno co teď zadáte) a vpravo dole dáte apply.
+
 ## Napojení databáze na IntelliJ ##
 
 Nejdřív otevřete okno database v pravém horním rohu editoru.
