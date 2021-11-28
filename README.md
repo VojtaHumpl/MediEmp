@@ -2,7 +2,7 @@
 ## Vytvoření databáze ##
 Nejdřív stáhněte MySQL na https://dev.mysql.com/downloads/connector/j/
 
-Projděte instalátor (root password "admin") a spustí se MySQL Workbench, tam levý panel přepnete z "Administration" na "Schemas", kliknete pravým a dáte "Create Schema." Schéma pojmenujte test (jinak všude jinde místo test budete psát jméno co teď zadáte) a vpravo dole dáte apply.
+Projděte instalátor (všechno default, root password "admin") a spustí se MySQL Workbench, tam levý panel přepnete z "Administration" na "Schemas", kliknete pravým a dáte "Create Schema." Schéma pojmenujte test (jinak všude jinde místo test budete psát jméno co teď zadáte) a vpravo dole dáte apply.
 
 ## Napojení databáze na IntelliJ ##
 
@@ -18,7 +18,7 @@ Pokud to děláte poprvé, v dolní části bude "Download drivers," což je pot
 ![database dialog](https://i.imgur.com/Bd3kTEK.png "database dialog")
 
 ## Libraries ##
-Po clone je potřeba otevřít v IntelliJ, kliknout na každý .jar pravým a zvolit "Add as Library"
+Po clone je potřeba otevřít v IntelliJ, kliknout na každý .jar ve složce lib pravým a zvolit "Add as Library"
 
 
 
