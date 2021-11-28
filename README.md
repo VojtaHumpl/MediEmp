@@ -13,7 +13,7 @@ Klikněte na tlačítko + a zvolte MySQL.
 
 ![add database](https://i.imgur.com/HHGLevG.png "add database")
 
-Otevře se okno, kde vyplníte jméno, heslo ("admin", "admin") a database ("test").
+Otevře se okno, kde vyplníte jméno, heslo ("admin" nebo "root", "admin") a database ("test").
 Pokud to děláte poprvé, v dolní části bude "Download drivers," což je potřeba stáhnout. Poté dejte "Test Connection" a měla by vyskočit success zpráva.
 ![database dialog](https://i.imgur.com/Bd3kTEK.png "database dialog")
 
