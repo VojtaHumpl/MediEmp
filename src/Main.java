@@ -1,22 +1,21 @@
+import java.io.IOException;
 
 public class Main {
 
-	
-	public static void main(String args[]) {
-		try {
-			var database = new DatabaseDriver();
-			database.Connect("localhost/test", "root", "admin");
-			var res = database.Query("select * from kurz");
+    private static HTTPServer handler;
 
-			while(res.next())
-				System.out.println(res.getString("nazev"));
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+    public static void main(String[] args) throws IOException {
+        try {
+            var database = new DatabaseDriver();
+            database.Connect("localhost/test", "root", "admin");
+
+            handler = new HTTPServer(8000, database);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
 
-		
-	}
-	
+    }
+
 	
 }
