@@ -41,9 +41,6 @@ public class Main {
 					case 1:
 						login();
 						break;
-					case 2:
-
-						break;
 				}
 			} else if (login == 1) {
 				int option = loadOption();

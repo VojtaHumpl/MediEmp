@@ -1,10 +1,17 @@
 # README #
-## Zadání ##
 MediEmp - Aplikace pro správu vzdělávání zaměstnanců v medicíně.
 
-Problém řešíme pomocí aplikace v Javě napojené na MySQL databázi. Aplikace má jednoduché konzolové rozhraní
-pro orientaci v aplikaci. Zaměstnavatelé si mohou zjišťovat informace o vzdělání zaměstnanců a zaměstnanci
-se mohou přihlašovat na různé kurzy.
+## Zadání ##
+Výzva - Zaměstnavatelé nyní nemají jednoduchý způsob, jak zjistit kvalifikace svých zaměstnanců. Nyní je zjišťují pomocí přímé komunikace 
+se zaměstnancem a to je neefektivní, když zaměstnavatel potřebuje najít někoho s určitou specializací. Je také složité zajišťovat pro
+zaměstnance vzdělávací kurzy, když zaměstnavatel přesně ani neví, jaký kurz by byl vhodný pro jakého zaměstnance.
+
+Problém vyřešíme pomocí aplikace, kde si zaměstnavatelé mohou zjišťovat informace o vzdělání
+zaměstnanců a zaměstnanci se mohou přihlašovat na různé kurzy. Zaměstnavatelé mohou tyto kurzy vytvářet na základě
+informací získaných z aplikace.
+
+## Technologie ##
+Aplikace bude programována v Javě a propjena s lokální databází MySQL.
 
 ## Schéma ##
 ![schema](https://i.imgur.com/gYtegRg.png "Schéma")

@@ -13,7 +13,7 @@ CREATE TABLE akce (
 
 -- Table: kurz
 CREATE TABLE kurz (
-    id_kurz int NOT NULL,
+    id_kurz int NOT NULL AUTO_INCREMENT,
     obor_zkratka varchar(10) NOT NULL,
     nazev varchar(200) NOT NULL,
     CONSTRAINT kurz_pk PRIMARY KEY (id_kurz)

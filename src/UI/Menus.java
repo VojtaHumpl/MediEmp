@@ -323,6 +323,7 @@ public class Menus {
 		s += "\n";
 		s += "1. Logout\n";
 		s += "2. Vypiš zaměstnance\n";
+		s += "3. Přidat kurz\n";
 		s += "_______________________________________\n";
 
 		return s;
@@ -347,6 +348,21 @@ public class Menus {
 				while (r.next()) {
 					System.out.println(Arrays.toString(Helpers.parseSingleResponse(r)));
 				}
+
+				break;
+			}
+			case 3: {
+				System.out.println("Zadejte zkratku oboru a název kurzu");
+				System.out.print("Zkratka oboru: ");
+				String zo = sc.nextLine();
+				System.out.print("Název kurzu: ");
+				String nazev = sc.nextLine();
+
+
+				PreparedStatement ps = db.getConnection().prepareStatement("insert into kurz (obor_zkratka, nazev) values (?, ?)");
+				ps.setString(1, zo);
+				ps.setString(2, nazev);
+				ps.execute();
 
 				break;
 			}
