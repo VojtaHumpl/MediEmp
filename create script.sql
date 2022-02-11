@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2022-02-10 14:00:52.998
+-- Last modification date: 2022-02-11 09:48:01.036
 
 -- tables
 -- Table: akce
@@ -75,35 +75,51 @@ CREATE TABLE zvlastni_zpusobilost (
 -- foreign keys
 -- Reference: Table_14_zamestnanec (table: zamestnanec_zvlastni_zpusobilost)
 ALTER TABLE zamestnanec_zvlastni_zpusobilost ADD CONSTRAINT Table_14_zamestnanec FOREIGN KEY Table_14_zamestnanec (rodne_cislo_zamestnanec)
-    REFERENCES zamestnanec (rodne_cislo);
+    REFERENCES zamestnanec (rodne_cislo)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
 
 -- Reference: Table_14_zvlastni_zpusobilosti (table: zamestnanec_zvlastni_zpusobilost)
 ALTER TABLE zamestnanec_zvlastni_zpusobilost ADD CONSTRAINT Table_14_zvlastni_zpusobilosti FOREIGN KEY Table_14_zvlastni_zpusobilosti (jmeno_zvlastni_zpusobilost)
-    REFERENCES zvlastni_zpusobilost (jmeno);
+    REFERENCES zvlastni_zpusobilost (jmeno)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
 
 -- Reference: akce_kurz (table: akce)
 ALTER TABLE akce ADD CONSTRAINT akce_kurz FOREIGN KEY akce_kurz (id_kurz)
-    REFERENCES kurz (id_kurz);
+    REFERENCES kurz (id_kurz)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
 
 -- Reference: kurz_obor (table: kurz)
 ALTER TABLE kurz ADD CONSTRAINT kurz_obor FOREIGN KEY kurz_obor (obor_zkratka)
-    REFERENCES obor (zkratka);
+    REFERENCES obor (zkratka)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
 
 -- Reference: zamestnanec_akce_akce (table: zamestnanec_akce)
 ALTER TABLE zamestnanec_akce ADD CONSTRAINT zamestnanec_akce_akce FOREIGN KEY zamestnanec_akce_akce (id_akce)
-    REFERENCES akce (id_akce);
+    REFERENCES akce (id_akce)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
 
 -- Reference: zamestnanec_akce_zamestnanec (table: zamestnanec_akce)
 ALTER TABLE zamestnanec_akce ADD CONSTRAINT zamestnanec_akce_zamestnanec FOREIGN KEY zamestnanec_akce_zamestnanec (rodne_cislo_zamestnanec)
-    REFERENCES zamestnanec (rodne_cislo);
+    REFERENCES zamestnanec (rodne_cislo)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
 
 -- Reference: zamestnanec_obor (table: zamestnanec)
 ALTER TABLE zamestnanec ADD CONSTRAINT zamestnanec_obor FOREIGN KEY zamestnanec_obor (obor_zkratka)
-    REFERENCES obor (zkratka);
+    REFERENCES obor (zkratka)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
 
 -- Reference: zamestnanec_zamestnavatel (table: zamestnanec)
 ALTER TABLE zamestnanec ADD CONSTRAINT zamestnanec_zamestnavatel FOREIGN KEY zamestnanec_zamestnavatel (zamestnavatel_ico)
-    REFERENCES zamestnavatel (ico);
+    REFERENCES zamestnavatel (ico)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
 
 -- End of file.
 

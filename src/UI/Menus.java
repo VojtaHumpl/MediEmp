@@ -25,17 +25,17 @@ public class Menus {
 		s += "ADMIN MENU\n";
 		s += "\n";
 		s += "1. Logout\n";
-		s += "2. Pridej zamestnavatele\n";
-		s += "3. Smaz zamestnavatele\n";
-		s += "4. Edituj zamestnavatele\n";
-		s += "5. Vypis zamestnavatele\n";
-		s += "6. Vypis zamestnance\n";
-		s += "7. Vypis obory\n";
-		s += "8. Vypis kurzy\n";
-		s += "9. Vypis akce\n";
-		s += "10. Vypis akce zamestnancu\n";
-		s += "11. Vypis zvlastni zpusobilosti\n";
-		s += "12. Vypis zvlastni zpusobilosti zamestnancu\n";
+		s += "2. Přidej zaměstnavatele\n";
+		s += "3. Smaž zaměstnavatele\n";
+		s += "4. Edituj zaměstnavatele\n";
+		s += "5. Vypiš zaměstnavatele\n";
+		s += "6. Vypiš zaměstnance\n";
+		s += "7. Vypiš obory\n";
+		s += "8. Vypiš kurzy\n";
+		s += "9. Vypiš akce\n";
+		s += "10. Vypiš akce zaměstnanců\n";
+		s += "11. Vypiš zvláštní způsobilosti\n";
+		s += "12. Vypiš zvláštní způsobilosti zaměstnanců\n";
 		s += "_______________________________________\n";
 
 		return s;
@@ -215,8 +215,20 @@ public class Menus {
 
 		switch (option) {
 			case 2: {
+				PreparedStatement ps = db.getConnection().prepareStatement("select rodne_cislo from zamestnanec where email=?");
+				ps.setString(1, email);
+				r = ps.executeQuery();
+				r.next();
+				String rc = Helpers.parseSingleResponse(r)[0];
+
 				System.out.println("ČÍSLO AKCE, DATUM, ADRESA, NÁZEV, ZKRATKA OBORU");
-				r = db.getConnection().createStatement().executeQuery("select A.id_akce, A.datum, A.adresa, K.nazev, K.obor_zkratka from akce A inner join kurz K on K.id_kurz = A.id_kurz where Now() < A.datum");
+				r = db.getConnection().createStatement().executeQuery("select A.id_akce, A.datum, A.adresa, K.nazev, K.obor_zkratka from akce A\n" +
+						"inner join kurz K on K.id_kurz = A.id_kurz \n" +
+						"where Now() < A.datum\n" +
+						"and\n" +
+						"A.id_akce not in \n" +
+						"(select id_akce from zamestnanec_akce\n" +
+						"where rodne_cislo_zamestnanec="+ "'" + rc + "'"+ ")");
 				while (r.next()) {
 					System.out.println(Arrays.toString(Helpers.parseSingleResponse(r)));
 				}
@@ -225,8 +237,10 @@ public class Menus {
 				System.out.print("Číslo akce: ");
 				int id = loadOption();
 
-				PreparedStatement ps = db.getConnection().prepareStatement("insert into zamestnanec_akce values (?, ?)");
-				ps.setString(1, Helpers.parseSingleResponse(r)[0]);
+
+
+				ps = db.getConnection().prepareStatement("insert into zamestnanec_akce values (?, ?)");
+				ps.setString(1, rc);
 				ps.setInt(2, id);
 				ps.execute();
 
@@ -235,11 +249,12 @@ public class Menus {
 			}
 			case 3: {
 				System.out.println("Vaše akce:");
-				System.out.println("ČÍSLO AKCE, NÁZEV, DATUM, ADRESA, ZKRATKA OBORU");
-				r = db.getConnection().createStatement().executeQuery("select A.id_akce, K.nazev, A.datum, A.adresa, K.obor_zkratka from zamestnanec Z\n" +
-						"inner join zamestnanec_akce ZA on ZA.rodne_cislo_zamestnanec = Z.rodne_cislo\n" +
-						"inner join akce A on A.id_akce = ZA.id_akce\n" +
-						"inner join kurz K on K.id_kurz = A.id_kurz");
+				System.out.println("ČÍSLO AKCE, DATUM, ADRESA, NÁZEV, ZKRATKA OBORU");
+				r = db.getConnection().createStatement().executeQuery("select A.id_akce, A.datum, A.adresa, K.nazev, K.obor_zkratka from akce A \n" +
+						"inner join zamestnanec_akce ZA on ZA.id_akce = A.id_akce\n" +
+						"inner join kurz K on K.id_kurz = A.id_kurz\n" +
+						"inner join zamestnanec Z on Z.rodne_cislo = ZA.rodne_cislo_zamestnanec\n" +
+						"where Z.email=" + "'" + email + "'");
 				while (r.next()) {
 					System.out.println(Arrays.toString(Helpers.parseSingleResponse(r)));
 				}
@@ -248,8 +263,14 @@ public class Menus {
 				System.out.print("Číslo akce: ");
 				int id = loadOption();
 
-				PreparedStatement ps = db.getConnection().prepareStatement("delete from zamestnanec_akce where id_akce=?");
+				PreparedStatement ps = db.getConnection().prepareStatement("select rodne_cislo from zamestnanec where email=?");
+				ps.setString(1, email);
+				r = ps.executeQuery();
+				r.next();
+
+				ps = db.getConnection().prepareStatement("delete from zamestnanec_akce where id_akce=? and rodne_cislo_zamestnanec=?");
 				ps.setInt(1, id);
+				ps.setString(2, Helpers.parseSingleResponse(r)[0]);
 				ps.execute();
 
 				System.out.println("Odhlášeno");
@@ -274,6 +295,7 @@ public class Menus {
 				while (r.next()) {
 					System.out.println(Arrays.toString(Helpers.parseSingleResponse(r)));
 				}
+				break;
 			}
 			case 5: {
 				System.out.println("Vaše akce:");
@@ -286,10 +308,50 @@ public class Menus {
 				while (r.next()) {
 					System.out.println(Arrays.toString(Helpers.parseSingleResponse(r)));
 				}
+				break;
 			}
 		}
 
 		return res;
 	}
 
+	public static String employerMenu() {
+		String s = "";
+
+		s += "_______________________________________\n";
+		s += "ZAMĚSTNAVATEL MENU\n";
+		s += "\n";
+		s += "1. Logout\n";
+		s += "2. Vypiš zaměstnance\n";
+		s += "_______________________________________\n";
+
+		return s;
+	}
+
+	public static String employerSwitch(int option, DatabaseDriver db, String email) throws SQLException {
+		String res = "";
+		ResultSet r = null;
+
+		switch (option) {
+			case 2: {
+				PreparedStatement ps = db.getConnection().prepareStatement("select ico from zamestnavatel where email=?");
+				ps.setString(1, email);
+				r = ps.executeQuery();
+				r.next();
+				String ico = Helpers.parseSingleResponse(r)[0];
+
+				System.out.println("Vaši zaměstnanci:");
+				System.out.println("JMÉNO, PŘÍJMENÍ, EMAIL, ZKRATKA OBORU");
+				r = db.getConnection().createStatement().executeQuery("select jmeno, prijmeni, email, obor_zkratka from zamestnanec\n" +
+						"where zamestnavatel_ico=" + "'" + ico + "'");
+				while (r.next()) {
+					System.out.println(Arrays.toString(Helpers.parseSingleResponse(r)));
+				}
+
+				break;
+			}
+		}
+
+		return res;
+	}
 }
