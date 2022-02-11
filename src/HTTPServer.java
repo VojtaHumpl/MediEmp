@@ -1,15 +1,15 @@
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+import logic.DatabaseDriver;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class HTTPServer {
 
-    private final int port;
+    /*private final int port;
     private final HttpServer server;
     private static DatabaseDriver database;
 
@@ -41,9 +41,9 @@ public class HTTPServer {
             os.write(response.getBytes());
             os.close();
         }
-    }
+    }*/
 
-    private static class EmployeeHandler implements HttpHandler {
+    /*private static class EmployeeHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
             try {
@@ -65,7 +65,7 @@ public class HTTPServer {
                 e.printStackTrace();
             }
         }
-    }
+    }*/
 
 
 
